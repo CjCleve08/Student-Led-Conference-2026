@@ -5,6 +5,8 @@ import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
 const EDIT_STORAGE_KEY = 'student-led-portfolio-edits-v1';
+const assetUrl = (relativePath: string) =>
+  `${import.meta.env.BASE_URL}${relativePath.replace(/^\/+/, '')}`;
 
 // Class data
 const selectedPog = {
@@ -36,8 +38,8 @@ const classes = [
       'This unit demonstrates Communication through speech structure, audience awareness, and revision.',
     pog: 'Communication',
     unit: 'Rhetoric & Argumentation',
-    bgImage: '/images/bg_speech.jpg',
-    collageImages: ['/images/speech_collage_1.jpg', '/images/speech_collage_2.jpg', '/images/speech_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_speech.jpg'),
+    collageImages: [assetUrl('images/speech_collage_1.jpg'), assetUrl('images/speech_collage_2.jpg'), assetUrl('images/speech_collage_3.jpg')],
     quote: null,
   },
   {
@@ -55,8 +57,8 @@ const classes = [
       'This unit demonstrates Critical Thinking through evidence analysis and logical conclusions.',
     pog: 'Critical Thinking',
     unit: 'Criminalistics & Crime-Scene Processing',
-    bgImage: '/images/bg_forensics.jpg',
-    collageImages: ['/images/forensics_collage_1.jpg', '/images/forensics_collage_2.jpg', '/images/forensics_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_forensics.jpg'),
+    collageImages: [assetUrl('images/forensics_collage_1.jpg'), assetUrl('images/forensics_collage_2.jpg'), assetUrl('images/forensics_collage_3.jpg')],
     quote: null,
   },
   {
@@ -74,8 +76,8 @@ const classes = [
       'This unit demonstrates Critical Thinking through data analysis, modeling, and justification.',
     pog: 'Critical Thinking',
     unit: 'Kinematics & Motion',
-    bgImage: '/images/bg_physics.jpg',
-    collageImages: ['/images/physics_collage_1.jpg', '/images/physics_collage_2.jpg', '/images/physics_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_physics.jpg'),
+    collageImages: [assetUrl('images/physics_collage_1.jpg'), assetUrl('images/physics_collage_2.jpg'), assetUrl('images/physics_collage_3.jpg')],
     quote: null,
   },
   {
@@ -93,8 +95,8 @@ const classes = [
       'This unit demonstrates Communication through thesis clarity, textual evidence, and structured writing.',
     pog: 'Communication',
     unit: 'American Literature',
-    bgImage: '/images/bg_english.jpg',
-    collageImages: ['/images/english_collage_1.jpg', '/images/english_collage_2.jpg', '/images/english_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_english.jpg'),
+    collageImages: [assetUrl('images/english_collage_1.jpg'), assetUrl('images/english_collage_2.jpg'), assetUrl('images/english_collage_3.jpg')],
     quote: '"The writer\'s job is to tell the truth." — Ernest Hemingway',
   },
   {
@@ -112,8 +114,8 @@ const classes = [
       'This unit demonstrates Responsibility through consistent reflection, professional communication, and follow-through.',
     pog: 'Responsibility',
     unit: 'Early Childhood Development',
-    bgImage: '/images/bg_childdev.jpg',
-    collageImages: ['/images/childdev_collage_1.jpg', '/images/childdev_collage_2.jpg', '/images/childdev_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_childdev.jpg'),
+    collageImages: [assetUrl('images/childdev_collage_1.jpg'), assetUrl('images/childdev_collage_2.jpg'), assetUrl('images/childdev_collage_3.jpg')],
     quote: null,
   },
   {
@@ -131,8 +133,8 @@ const classes = [
       'This unit demonstrates Perseverance through persistence, practice, and independent problem-solving.',
     pog: 'Perseverance',
     unit: 'Functions & Transformations',
-    bgImage: '/images/bg_precalc.jpg',
-    collageImages: ['/images/precalc_collage_1.jpg', '/images/precalc_collage_2.jpg', '/images/precalc_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_precalc.jpg'),
+    collageImages: [assetUrl('images/precalc_collage_1.jpg'), assetUrl('images/precalc_collage_2.jpg'), assetUrl('images/precalc_collage_3.jpg')],
     quote: null,
   },
   {
@@ -150,8 +152,8 @@ const classes = [
       'This unit demonstrates Critical Thinking through source evaluation and evidence-based historical argument.',
     pog: 'Critical Thinking',
     unit: 'The Constitution & Early Republic',
-    bgImage: '/images/bg_ushistory.jpg',
-    collageImages: ['/images/ushistory_collage_1.jpg', '/images/ushistory_collage_2.jpg', '/images/ushistory_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_ushistory.jpg'),
+    collageImages: [assetUrl('images/ushistory_collage_1.jpg'), assetUrl('images/ushistory_collage_2.jpg'), assetUrl('images/ushistory_collage_3.jpg')],
     quote: null,
   },
   {
@@ -169,8 +171,8 @@ const classes = [
       'This unit demonstrates Digital Literacy through research tools, source evaluation, and data-supported recommendations.',
     pog: 'Digital Literacy',
     unit: 'Sustainable Agriculture & Food Systems',
-    bgImage: '/images/bg_worldag.jpg',
-    collageImages: ['/images/worldag_collage_1.jpg', '/images/worldag_collage_2.jpg', '/images/worldag_collage_3.jpg'],
+    bgImage: assetUrl('images/bg_worldag.jpg'),
+    collageImages: [assetUrl('images/worldag_collage_1.jpg'), assetUrl('images/worldag_collage_2.jpg'), assetUrl('images/worldag_collage_3.jpg')],
     quote: null,
   },
 ];
@@ -378,7 +380,7 @@ function App() {
 
       // If no browser-local edits exist, load your saved edit file for deploy consistency.
       if (Object.keys(savedEdits).length === 0) {
-        fetch('/portfolio-text-edits.json')
+        fetch(assetUrl('portfolio-text-edits.json'))
           .then((res) => (res.ok ? res.json() : null))
           .then((fileEdits) => {
             if (!fileEdits || typeof fileEdits !== 'object') return;
@@ -459,13 +461,13 @@ function App() {
         <div className="hero-collage collage-card absolute right-[6vw] top-[50%] -translate-y-1/2 w-[48vw] max-w-[900px] h-[54vh] max-h-[680px] p-3">
           <div className="grid grid-cols-2 grid-rows-2 gap-2.5 h-full">
             <div className="overflow-hidden rounded-lg">
-              <img src="/images/hero_collage_1.jpg" alt="Student studying" className="w-full h-full object-cover img-hover" />
+              <img src={assetUrl('images/hero_collage_1.jpg')} alt="Student studying" className="w-full h-full object-cover img-hover" />
             </div>
             <div className="overflow-hidden rounded-lg">
-              <img src="/images/hero_collage_2.jpg" alt="Notes and books" className="w-full h-full object-cover img-hover" />
+              <img src={assetUrl('images/hero_collage_2.jpg')} alt="Notes and books" className="w-full h-full object-cover img-hover" />
             </div>
             <div className="overflow-hidden rounded-lg">
-              <img src="/images/hero_collage_3.jpg" alt="Collaboration" className="w-full h-full object-cover img-hover" />
+              <img src={assetUrl('images/hero_collage_3.jpg')} alt="Collaboration" className="w-full h-full object-cover img-hover" />
             </div>
             <div className="flex items-center justify-center p-6 bg-[#14161B]/50 rounded-lg">
               <p className="font-mono text-xs text-[#A7ACBF] uppercase tracking-widest leading-relaxed">
